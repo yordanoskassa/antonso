@@ -24,12 +24,13 @@ app.use(
   }),
 );
 
+// Better Auth handler - must be before express.json()
 app.all("/api/auth/*", toNodeHandler(auth));
 
 app.use(express.json());
 
 app.get("/health", (_req, res) => {
-  res.json({ ok: true });
+  res.json({ ok: true, env: process.env.NODE_ENV });
 });
 
 app.get("/api/me", async (req, res) => {
@@ -43,8 +44,18 @@ app.get("/test", (_req, res) => {
   res.json({ message: "Auth server is running", timestamp: new Date().toISOString() });
 });
 
+// Debug - list all registered routes
+app.get("/debug", (_req, res) => {
+  res.json({
+    routes: auth.api.getEndpoints?.() || "Better Auth endpoints not exposed",
+    baseURL: publicUrl,
+    corsOrigins,
+  });
+});
+
 app.listen(port, () => {
   console.log(`Better Auth listening on ${port} (CORS: ${corsOrigins.join(", ")})`);
+  console.log(`Auth endpoints: /api/auth/*`);
   if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
     console.warn(
       "[auth] Google sign-in disabled: set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in .env",
