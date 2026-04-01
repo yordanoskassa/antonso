@@ -39,6 +39,10 @@ app.get("/api/me", async (req, res) => {
   res.json(session);
 });
 
+app.get("/test", (_req, res) => {
+  res.json({ message: "Auth server is running", timestamp: new Date().toISOString() });
+});
+
 app.listen(port, () => {
   console.log(`Better Auth listening on ${port} (CORS: ${corsOrigins.join(", ")})`);
   if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
