@@ -1,0 +1,39 @@
+{
+  "name": "anton-portal-auth",
+  "type": "docker-compose",
+  "services": [
+    {
+      "name": "auth-server",
+      "type": "docker",
+      "source": {
+        "type": "git",
+        "repo": "https://github.com/yourusername/easyanton.git",
+        "branch": "main",
+        "path": "anton-portal/auth-server"
+      },
+      "dockerfile": "Dockerfile",
+      "ports": [
+        {
+          "host": 3005,
+          "container": 3005
+        }
+      ],
+      "env": [
+        "PORT=3005",
+        "BETTER_AUTH_URL",
+        "FRONTEND_ORIGIN",
+        "BETTER_AUTH_SECRET",
+        "MONGODB_URI",
+        "GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET",
+        "BETTER_AUTH_TRUSTED_ORIGINS"
+      ],
+      "healthcheck": {
+        "test": ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3005/health"],
+        "interval": 30,
+        "timeout": 10,
+        "retries": 3
+      }
+    }
+  ]
+}
