@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: 'Instrument Serif', serif;
+    --font-body: 'Inter', sans-serif;
+
+    --background: 201 100% 8%;
+    --foreground: 0 0% 100%;
+    --muted-foreground: 210 12% 68%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 201 55% 12%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 201 50% 14%;
+    --accent: 201 45% 15%;
+    --accent-foreground: 0 0% 100%;
+    --card: 201 55% 11%;
+    --card-foreground: 0 0% 100%;
+    --popover: 201 55% 10%;
+    --popover-foreground: 0 0% 100%;
+    --border: 201 40% 18%;
+    --input: 201 40% 18%;
+    --ring: 201 55% 38%;
+    --radius: 0.75rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply min-h-screen bg-background text-foreground antialiased;
+    font-family: var(--font-body);
+  }
+}
+
+/**
+ * Glassmorphic pill / nav CTA — minimal fill + luminosity + soft blur + gradient rim.
+ * (Reference pattern: near-transparent layer reads the video through the glass.)
+ */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.01);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.15) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.15) 80%,
+    rgba(255, 255, 255, 0.45) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/** No rim / inset line — use with `.liquid-glass` (e.g. Product nav only). */
+.liquid-glass-flat {
+  box-shadow: none;
+}
+
+.liquid-glass-flat::before {
+  display: none;
+}
+
+
+
+@keyframes hero-star-pulse {
+  0%,
+  100% {
+    opacity: var(--star-a, 0.22);
+    transform: translate(-50%, -50%) scale(1);
+    filter: brightness(0.92);
+  }
+  50% {
+    opacity: var(--star-b, 0.48);
+    transform: translate(-50%, -50%) scale(1.05);
+    filter: brightness(1.14);
+  }
+}
+
