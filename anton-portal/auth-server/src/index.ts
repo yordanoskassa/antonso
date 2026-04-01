@@ -47,7 +47,7 @@ app.get("/test", (_req, res) => {
 // Debug - list all registered routes
 app.get("/debug", (_req, res) => {
   res.json({
-    routes: auth.api.getEndpoints?.() || "Better Auth endpoints not exposed",
+    betterAuth: true,
     baseURL: publicUrl,
     corsOrigins,
   });
