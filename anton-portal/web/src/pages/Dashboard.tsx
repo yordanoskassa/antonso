@@ -97,6 +97,33 @@ export function Dashboard() {
           </div>
         </div>
 
+        {/* Thank you card with feature image */}
+        <Card className="overflow-hidden">
+          <div className="relative h-48 w-full overflow-hidden">
+            <img
+              src="/feature2.jpg"
+              alt="Thank you"
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+            <div className="absolute bottom-4 left-4 right-4">
+              <h2
+                className="text-2xl font-normal text-white"
+                style={{ fontFamily: "'Instrument Serif', serif" }}
+              >
+                Welcome to the future of work
+              </h2>
+            </div>
+          </div>
+          <CardContent className="p-6">
+            <p className="text-lg leading-relaxed text-foreground">
+              Thank you <span className="font-medium">{session.user.name || session.user.email?.split('@')[0] || 'there'}</span> for joining the Anton waitlist. 
+              We're building something profound: a single space where your agent, files, and context breathe together—
+              without turning work into a slot machine. Your attention deserves a shoreline.
+            </p>
+          </CardContent>
+        </Card>
+
         <Card>
           <CardHeader>
             <CardTitle>Product analytics</CardTitle>

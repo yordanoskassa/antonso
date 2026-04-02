@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { useAuthModal } from '@/context/auth-modal-context'
 import { authClient } from '@/lib/auth-client'
 
 /** Served from `public/hero-video.mp4` (source: `anton/src/video_5.mp4`) */
@@ -313,7 +312,6 @@ function headerChromeForSection(section: Section): string {
 }
 
 export function Landing() {
-  const { openLogin } = useAuthModal()
   const { data: session } = authClient.useSession()
   const [activeSection, setActiveSection] = useState<Section>('home')
 
@@ -496,21 +494,13 @@ export function Landing() {
           </button>
 
           <div className="flex min-w-0 flex-1 items-center justify-end">
-            {session?.user ? (
+            {session?.user && (
               <Link
                 to="/dashboard"
                 className="liquid-glass inline-flex items-center justify-center rounded-full px-4 py-2 text-xs text-white whitespace-nowrap transition-transform hover:scale-[1.03] sm:px-6 sm:py-2.5 sm:text-sm"
               >
                 Open Anton
               </Link>
-            ) : (
-              <button
-                type="button"
-                className="liquid-glass inline-flex cursor-pointer items-center justify-center rounded-full px-4 py-2 text-xs text-white whitespace-nowrap transition-transform hover:scale-[1.03] sm:px-6 sm:py-2.5 sm:text-sm"
-                onClick={() => openLogin()}
-              >
-                Open Anton
-              </button>
             )}
           </div>
         </nav>
@@ -535,21 +525,13 @@ export function Landing() {
           <p className="mt-8 max-w-md text-base leading-relaxed text-white/70 sm:text-lg">
             One agent. Everything you'd rather not do yourself.
           </p>
-          {session?.user ? (
+          {session?.user && (
             <Link
               to="/dashboard"
               className="liquid-glass mt-12 inline-flex cursor-pointer items-center justify-center rounded-full px-14 py-5 text-base text-white transition-transform hover:scale-[1.03]"
             >
               Open Anton
             </Link>
-          ) : (
-            <button
-              type="button"
-              className="liquid-glass mt-12 inline-flex cursor-pointer items-center justify-center rounded-full px-14 py-5 text-base text-white transition-transform hover:scale-[1.03]"
-              onClick={() => openLogin()}
-            >
-              Open Anton
-            </button>
           )}
           </div>
         </section>
